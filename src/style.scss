@@ -1,12 +1,12 @@
 .caption-box {
     --background: var(--box-background, #fafafa);
-    --border-color: var(--box-border-color, #eee);
+    --border-color: var(--box-border-color, #2a2a2a);
     --border: var(--box-border, 1px solid var(--border-color));
     --box-shadow: var(--box-box-shadow, none);
     --border-radius: var(--box-border-radius, 5px);
     --padding: var(--padding-hf-unit, 20px);
     --margin: var(--margin-df-unit, 15px);
-    --color: var(--text-color, inherit);
+    --caption-color: var(--text-color-inverse, #fff);
 
     display: block;
     border: var(--border);
@@ -29,7 +29,7 @@
         display: block;
         font-weight: bold;
         font-size: inherit;
-        color: var(--color);
+        color: var(--caption-color);
         background: var(--border-color);
         padding: var(--padding);
         margin: 0;
