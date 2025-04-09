@@ -1,0 +1,48 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "rf/caption-box",
+  "version": "1.0.0",
+  "title": "Caption Box",
+  "category": "layout",
+  "icon": "embed-generic",
+  "description": "A block to display a caption box.",
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "captionStyle": {
+      "type": "string",
+      "default": "default"
+    },
+    "tagName": {
+      "type": "string",
+      "default": "div"
+    },
+    "tagHref": {
+      "type": "string",
+      "default": ""
+    },
+    "tagRel": {
+      "type": "string",
+      "default": ""
+    },
+    "tagTarget": {
+      "type": "string",
+      "default": "_self"
+    }
+  },
+  "supports": {
+    "html": false,
+    "className": true
+  },
+  "keywords": [
+    "post",
+    "featured"
+  ],
+  "textdomain": "rf-caption-box",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css"
+}

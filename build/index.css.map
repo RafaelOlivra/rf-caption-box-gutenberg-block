@@ -1,0 +1,1 @@
+{"version":3,"file":"index.css","mappings":";;;AACI;EACI;AAAR;AAGI;EACI;AADR,C","sources":["webpack://caption-box/./src/editor.scss"],"sourcesContent":[".caption-box {\r\n    .caption-title {\r\n        top: -5px;\r\n    }\r\n\r\n    >a {\r\n        display: contents !important;\r\n    }\r\n}"],"names":[],"sourceRoot":""}
