@@ -16,6 +16,18 @@
 			"type": "string",
 			"default": "default"
 		},
+		"backgroundColor": {
+			"type": "string",
+			"default": ""
+		},
+		"borderColor": {
+			"type": "string",
+			"default": ""
+		},
+		"captionColor": {
+			"type": "string",
+			"default": ""
+		},
 		"tagName": {
 			"type": "string",
 			"default": "div"

@@ -3,17 +3,26 @@ import { SmartTagControl, SmartTag } from "./SmartTag";
 
 export default function save(props) {
     const { attributes } = props;
-    const { title, captionStyle } = attributes;
-    const blockProps = useBlockProps.save({ className: "caption-box" });
-
-    // Add class based on style
-    if (captionStyle) {
-        blockProps.className += ` caption-${captionStyle}`;
-    }
+    const { title, captionStyle, backgroundColor, borderColor, captionColor } = attributes;
+    const blockProps = useBlockProps.save({
+        className: `caption-box caption-${captionStyle || "default"}`,
+        style: {
+            backgroundColor: backgroundColor || undefined,
+            borderColor: borderColor || undefined,
+        },
+        captionStyle: {
+            backgroundColor: borderColor || undefined,
+            color: captionColor || undefined,
+        },
+    });
 
     return (
-        <SmartTag {...attributes} className={blockProps.className}>
-            {title && <p className="caption-title title">{title}</p>}
+        <SmartTag {...attributes} className={blockProps.className} style={blockProps.style}>
+            {title && (
+                <p className="caption-title title" style={blockProps.captionStyle}>
+                    {title}
+                </p>
+            )}
             <div className="caption-content">
                 <InnerBlocks.Content />
             </div>

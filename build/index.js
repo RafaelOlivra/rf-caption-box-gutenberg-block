@@ -45,13 +45,13 @@ const smartTagAttributes = {
   }
 };
 const SmartTag = props => {
-  console.log(props);
   const {
     tagName,
     id,
     tagHref,
     tagRel,
     tagTarget,
+    style,
     className,
     children
   } = props;
@@ -60,7 +60,8 @@ const SmartTag = props => {
     id,
     href: tagHref,
     rel: tagRel,
-    target: tagTarget
+    target: tagTarget,
+    style
   }, children);
 };
 const SmartTagControl = ({
@@ -135,7 +136,7 @@ const SmartTagControl = ({
   \************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"rf/caption-box","version":"1.0.0","title":"Caption Box","category":"layout","icon":"embed-generic","description":"A block to display a caption box.","attributes":{"title":{"type":"string","default":""},"captionStyle":{"type":"string","default":"default"},"tagName":{"type":"string","default":"div"},"tagHref":{"type":"string","default":""},"tagRel":{"type":"string","default":""},"tagTarget":{"type":"string","default":"_self"}},"supports":{"html":false,"className":true},"keywords":["post","featured"],"textdomain":"rf-caption-box","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"rf/caption-box","version":"1.0.0","title":"Caption Box","category":"layout","icon":"embed-generic","description":"A block to display a caption box.","attributes":{"title":{"type":"string","default":""},"captionStyle":{"type":"string","default":"default"},"backgroundColor":{"type":"string","default":""},"borderColor":{"type":"string","default":""},"captionColor":{"type":"string","default":""},"tagName":{"type":"string","default":"div"},"tagHref":{"type":"string","default":""},"tagRel":{"type":"string","default":""},"tagTarget":{"type":"string","default":"_self"}},"supports":{"html":false,"className":true},"keywords":["post","featured"],"textdomain":"rf-caption-box","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css"}');
 
 /***/ }),
 
@@ -153,9 +154,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _SmartTag__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SmartTag */ "./src/SmartTag.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _SmartTag__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./SmartTag */ "./src/SmartTag.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
+
 
 
 
@@ -167,10 +171,21 @@ function edit(props) {
   } = props;
   const {
     title,
-    captionStyle
+    captionStyle,
+    backgroundColor,
+    borderColor,
+    captionColor
   } = attributes;
   const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)({
-    className: "caption-box"
+    className: `caption-box caption-${captionStyle || "default"}`,
+    style: {
+      backgroundColor: backgroundColor || undefined,
+      borderColor: borderColor || undefined
+    },
+    captionStyle: {
+      backgroundColor: borderColor || undefined,
+      color: captionColor || undefined
+    }
   });
   const availableCaptionStyles = [{
     label: "Default",
@@ -182,45 +197,88 @@ function edit(props) {
     label: "Style 2",
     value: "style-2"
   }];
-
-  // Add class based on style
-  if (captionStyle) {
-    blockProps.className += ` caption-${captionStyle}`;
-  }
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.PanelBody, {
-        title: "Caption Settings",
+  const colors = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_2__.useSelect)("core/block-editor").getSettings().colors;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.PanelBody, {
+        title: "Settings",
         initialOpen: true,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.TextControl, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.TextControl, {
           label: "Title",
           value: title,
           onChange: value => setAttributes({
             title: value
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.SelectControl, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.SelectControl, {
           label: "Select Style",
           value: captionStyle,
           options: availableCaptionStyles,
           onChange: value => setAttributes({
             captionStyle: value
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_SmartTag__WEBPACK_IMPORTED_MODULE_2__.SmartTagControl, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_SmartTag__WEBPACK_IMPORTED_MODULE_3__.SmartTagControl, {
           ...props
         })]
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.PanelBody, {
+        title: "Colors",
+        initialOpen: false,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          style: {
+            marginBottom: "1em"
+          },
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("strong", {
+              children: "Background Color"
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.ColorPalette, {
+            colors: colors,
+            value: backgroundColor,
+            onChange: color => setAttributes({
+              backgroundColor: color
+            })
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          style: {
+            marginBottom: "1em"
+          },
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("strong", {
+              children: "Border Color"
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.ColorPalette, {
+            colors: colors,
+            value: borderColor,
+            onChange: color => setAttributes({
+              borderColor: color
+            })
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("strong", {
+              children: "Caption Text Color"
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.ColorPalette, {
+            colors: colors,
+            value: captionColor,
+            onChange: captionColor => setAttributes({
+              captionColor
+            })
+          })]
+        })]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       ...blockProps,
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_SmartTag__WEBPACK_IMPORTED_MODULE_2__.SmartTag, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_SmartTag__WEBPACK_IMPORTED_MODULE_3__.SmartTag, {
         ...attributes,
         tagName: "div",
         className: "",
-        children: [title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+        children: [title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
           className: "caption-title title",
+          style: blockProps.captionStyle,
           children: title
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
           className: "caption-content",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InnerBlocks, {})
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InnerBlocks, {})
         })]
       })
     })]
@@ -299,21 +357,29 @@ function save(props) {
   } = props;
   const {
     title,
-    captionStyle
+    captionStyle,
+    backgroundColor,
+    borderColor,
+    captionColor
   } = attributes;
   const blockProps = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.useBlockProps.save({
-    className: "caption-box"
+    className: `caption-box caption-${captionStyle || "default"}`,
+    style: {
+      backgroundColor: backgroundColor || undefined,
+      borderColor: borderColor || undefined
+    },
+    captionStyle: {
+      backgroundColor: borderColor || undefined,
+      color: captionColor || undefined
+    }
   });
-
-  // Add class based on style
-  if (captionStyle) {
-    blockProps.className += ` caption-${captionStyle}`;
-  }
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_SmartTag__WEBPACK_IMPORTED_MODULE_1__.SmartTag, {
     ...attributes,
     className: blockProps.className,
+    style: blockProps.style,
     children: [title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
       className: "caption-title title",
+      style: blockProps.captionStyle,
       children: title
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       className: "caption-content",
@@ -363,6 +429,16 @@ module.exports = window["wp"]["blocks"];
 /***/ ((module) => {
 
 module.exports = window["wp"]["components"];
+
+/***/ }),
+
+/***/ "@wordpress/data":
+/*!******************************!*\
+  !*** external ["wp","data"] ***!
+  \******************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["data"];
 
 /***/ }),
 

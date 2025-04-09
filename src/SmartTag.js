@@ -1,5 +1,5 @@
 import { createElement } from "@wordpress/element";
-import { PanelRow, SelectControl, TextControl } from "@wordpress/components";
+import { SelectControl, TextControl } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
 
 const smartTagAttributes = {
@@ -22,9 +22,8 @@ const smartTagAttributes = {
 };
 
 const SmartTag = (props) => {
-    console.log(props);
-    const { tagName, id, tagHref, tagRel, tagTarget, className, children } = props;
-    return createElement(tagName, { className, id, href: tagHref, rel: tagRel, target: tagTarget }, children);
+    const { tagName, id, tagHref, tagRel, tagTarget, style, className, children } = props;
+    return createElement(tagName, { className, id, href: tagHref, rel: tagRel, target: tagTarget, style }, children);
 };
 
 const SmartTagControl = ({ attributes, setAttributes }) => {
