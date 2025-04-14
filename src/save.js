@@ -1,5 +1,5 @@
-import { useBlockProps, InnerBlocks } from "@wordpress/block-editor";
-import { SmartTagControl, SmartTag } from "./SmartTag";
+import { useBlockProps, InnerBlocks, RichText } from "@wordpress/block-editor";
+import { SmartTag } from "./SmartTag";
 
 export default function save(props) {
     const { attributes } = props;
@@ -18,11 +18,7 @@ export default function save(props) {
 
     return (
         <SmartTag {...attributes} className={blockProps.className} style={blockProps.style}>
-            {title && (
-                <p className="caption-title title" style={blockProps.captionStyle}>
-                    {title}
-                </p>
-            )}
+            {title && <RichText.Content tagName="p" className="caption-title title" value={title} style={blockProps.captionStyle} />}
             <div className="caption-content">
                 <InnerBlocks.Content />
             </div>
