@@ -4,7 +4,7 @@
     --border: var(--box-border, 1px solid var(--border-color));
     --box-shadow: var(--box-box-shadow, none);
     --border-radius: var(--box-border-radius, 5px);
-    --padding: var(--padding-hf-unit, 20px);
+    --padding: var(--padding-df-unit, 20px);
     --margin: var(--margin-df-unit, 15px);
     --caption-color: var(--text-color-inverse, #fff);
 
@@ -31,7 +31,7 @@
         font-size: inherit;
         color: var(--caption-color);
         background: var(--border-color);
-        padding: var(--padding);
+        padding: 1.5rem var(--padding);
         margin: 0;
     }
 

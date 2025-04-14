@@ -1,7 +1,8 @@
-import { SelectControl, PanelBody, TextControl, ColorPalette } from "@wordpress/components";
-import { InspectorControls, useBlockProps, InnerBlocks } from "@wordpress/block-editor";
+import { SelectControl, PanelBody, ColorPalette } from "@wordpress/components";
+import { InspectorControls, useBlockProps, InnerBlocks, RichText } from "@wordpress/block-editor";
 import { useSelect } from "@wordpress/data";
 import { SmartTagControl, SmartTag } from "./SmartTag";
+import { __ } from "@wordpress/i18n";
 
 export default function edit(props) {
     const { attributes, setAttributes } = props;
@@ -29,7 +30,6 @@ export default function edit(props) {
         <>
             <InspectorControls>
                 <PanelBody title="Settings" initialOpen={true}>
-                    <TextControl label="Title" value={title} onChange={(value) => setAttributes({ title: value })} />
                     <SelectControl
                         label="Select Style"
                         value={captionStyle}
@@ -62,9 +62,14 @@ export default function edit(props) {
             <div {...blockProps}>
                 <SmartTag {...attributes} tagName="div" className="">
                     {title && (
-                        <p className="caption-title title" style={blockProps.captionStyle}>
-                            {title}
-                        </p>
+                        <RichText
+                            tagName="p"
+                            className="caption-title title"
+                            placeholder={__("Title", "rf-faq")}
+                            value={title}
+                            onChange={(title) => setAttributes({ title })}
+                            style={blockProps.captionStyle}
+                        />
                     )}
                     <div className="caption-content">
                         <InnerBlocks />
