@@ -38,6 +38,10 @@
     .caption-content {
         padding: var(--padding);
         margin: 0;
+
+        >ul {
+            margin-left: 0;
+        }
     }
 
     &[class*="is-style-alert-dashed"],
