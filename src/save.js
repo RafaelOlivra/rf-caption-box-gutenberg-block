@@ -18,7 +18,7 @@ export default function save(props) {
 
     return (
         <SmartTag {...attributes} className={blockProps.className} style={blockProps.style}>
-            {title && <RichText.Content tagName="p" className="caption-title title" value={title} style={blockProps.captionStyle} />}
+            <RichText.Content tagName="p" className="caption-title title" value={title} style={blockProps.captionStyle} />
             <div className="caption-content">
                 <InnerBlocks.Content />
             </div>

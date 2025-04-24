@@ -61,16 +61,14 @@ export default function edit(props) {
             </InspectorControls>
             <div {...blockProps}>
                 <SmartTag {...attributes} tagName="div" className="">
-                    {title && (
-                        <RichText
-                            tagName="p"
-                            className="caption-title title"
-                            placeholder={__("Title", "rf-faq")}
-                            value={title}
-                            onChange={(title) => setAttributes({ title })}
-                            style={blockProps.captionStyle}
-                        />
-                    )}
+                    <RichText
+                        tagName="p"
+                        className="caption-title title"
+                        placeholder={__("Title", "rf-faq")}
+                        value={title}
+                        onChange={(title) => setAttributes({ title })}
+                        style={blockProps.captionStyle}
+                    />
                     <div className="caption-content">
                         <InnerBlocks />
                     </div>
